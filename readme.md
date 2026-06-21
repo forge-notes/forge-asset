@@ -121,6 +121,22 @@ POST   /api/assets/generate-code
 
 除登录接口外，资产接口都需要 `Authorization: Bearer <token>`。
 
+
+## Screenshots
+
+### Asset Login
+
+![Login](docs/images/login.png)
+
+
+### Asset Management
+
+![Asset Management](docs/images/management.png)
+
+### A4 Label Printing
+
+![A4 Label Printing](docs/images/print-preview.png)
+
 ## 后续规划
 
 - 二维码与扫码盘点
