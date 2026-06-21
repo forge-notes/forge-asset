@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend/ForgeAsset.Api
+    container_name: forgeasset-api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      Database__Provider: Sqlite
+      Database__ConnectionString: Data Source=/app/data/forge_asset.db
+      AdminUser__Username: ${ADMIN_USERNAME:-admin}
+      AdminUser__Password: ${ADMIN_PASSWORD:-admin123}
+      Jwt__Issuer: ForgeAsset
+      Jwt__Audience: ForgeAsset
+      Jwt__Key: ${JWT_KEY:-forgeasset-compose-secret-key-change-me-2026}
+    volumes:
+      - forgeasset-data:/app/data
+    ports:
+      - "5050:8080"
+
+  frontend:
+    build:
+      context: ./frontend/forge-asset-web
+    container_name: forgeasset-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  forgeasset-data:
+    name: forgeasset-data
